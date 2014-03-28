@@ -24,7 +24,7 @@ servico(p2, Combustivel).
 servico(p3, Lavandaria).
 
 servico(p7, McDonalds).
-
+servico(p12, BananaCorp).
 % -----------------------------------
 % define ligações entre pontos
 % arco( Ponto1, Ponto2 )
@@ -70,4 +70,5 @@ pontoProximo( X, Y, M, P ) :-
 % pontoMaisProximo( X, Y, P ) :-
 % mais próximo que quê?
 % usar uma lista de todas as distancias? é preciso ver o dijkstra que o 12 encontrou.
+
 
