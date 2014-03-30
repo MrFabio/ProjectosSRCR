@@ -4,16 +4,17 @@
  * and open the template in the editor.
  */
 
-package Forma;
+package Mapa;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  *
  * @author Chalkos
  */
-public abstract class Desenho {
+public abstract class Figura {
     protected static double zoom = 1;
     protected static int meioX = 0;
     protected static int meioY = 0;
@@ -21,10 +22,12 @@ public abstract class Desenho {
     protected static double offsetY = 20;
     protected Color color = new Color(0,0,0);
     
+    protected ArrayList<String[]> propriedades = new ArrayList<>();
+    
     public abstract void desenhar(Graphics g);
 
     public static void setZoom(int zoom) {
-        Desenho.zoom = ((double)zoom)/100;
+        Figura.zoom = ((double)zoom)/100;
     }
     
     public static void setMeio(int x, int y){
@@ -71,5 +74,11 @@ public abstract class Desenho {
         this.color = color;
     }
     
-    
+    public void addProperty(String name, String value){
+        //clonagem
+        String[] row = new String[2];
+        row[0] = new String(name);
+        row[1] = new String(value);
+        propriedades.add(row);
+    }
 }

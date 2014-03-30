@@ -6,7 +6,9 @@
 
 package Geoconhecimento;
 
-import Forma.Desenho;
+import Mapa.Etiqueta;
+import Mapa.Mapa;
+import Mapa.Figura;
 import java.awt.event.MouseEvent;
 
 /**
@@ -55,6 +57,11 @@ public class jfMapa extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                jPanel1MouseWheelMoved(evt);
+            }
+        });
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel1MouseClicked(evt);
@@ -140,18 +147,15 @@ public class jfMapa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        if( evt.getButton() == MouseEvent.BUTTON1 )
-            //mapa.desenharPonto(evt.getX(), evt.getY());
-            mapa.desenharTudo();
+        mapa.activeLabel.setPosition(evt.getX(), evt.getY());
+        mapa.activeLabel.setText("Pos: (" + evt.getX() + ", " + evt.getY() + ")");
+        mapa.activeLabel.activate();
+        mapa.desenharTudo();
+        mapa.activeLabel.deactivate();
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        
-        
-        System.out.println("coords: " + Desenho.mouseXToCoords(evt.getX()) + ", " + Desenho.mouseYToCoords(evt.getY()));
-        
-        //mapa.desenharPonto(evt.getX(), evt.getY());
-        Desenho.mouseMoved(mouseDownX, mouseDownY, evt.getX(), evt.getY());
+        Figura.mouseMoved(mouseDownX, mouseDownY, evt.getX(), evt.getY());
         mouseDownX = evt.getX();
         mouseDownY = evt.getY();
         mapa.desenharTudo();
@@ -163,7 +167,7 @@ public class jfMapa extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        Desenho.setZoom(jSlider1.getValue());
+        Figura.setZoom(jSlider1.getValue());
         mapa.desenharTudo();
     }//GEN-LAST:event_jSlider1StateChanged
 
@@ -183,6 +187,12 @@ public class jfMapa extends javax.swing.JFrame {
     private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentShown
         mapa.desenharTudo();
     }//GEN-LAST:event_jPanel1ComponentShown
+
+    private void jPanel1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jPanel1MouseWheelMoved
+        double sentidoActual = evt.getPreciseWheelRotation();
+        
+        jSlider1.setValue(jSlider1.getValue() - ((int)(sentidoActual*30)));
+    }//GEN-LAST:event_jPanel1MouseWheelMoved
 
     /**
      * @param args the command line arguments
