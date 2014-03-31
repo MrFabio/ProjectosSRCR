@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 
-package Geoconhecimento;
+package Mapa;
 
-import Forma.Arco;
-import Forma.Desenho;
-import Forma.Ponto;
+import Mapa.Arco;
+import Mapa.Figura;
+import Mapa.Ponto;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Label;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -22,9 +23,11 @@ import javax.swing.JPanel;
  * @author Chalkos
  */
 public class Mapa {
-    private ArrayList<Desenho> shapes = new ArrayList<>();
+    private ArrayList<Figura> shapes = new ArrayList<>();
     private JPanel panel;
     private Graphics g;
+    
+    public final Etiqueta activeLabel = new Etiqueta();
 
     public Mapa(JPanel panel) {
         this.panel = panel;
@@ -36,6 +39,9 @@ public class Mapa {
         shapes.add(new Arco(0,20,0,-20));
         shapes.add(new Arco(20,0,-20,0));
         shapes.add(new Ponto(0,0, new Color(255, 0, 0)));
+        
+        
+        shapes.add(activeLabel);
     }
     
     public void desenharPonto(int x, int y){
@@ -49,8 +55,9 @@ public class Mapa {
         g.clearRect(0, 0, panel.getWidth(), panel.getHeight());
         //g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
         
-        Desenho.setMeio(panel.getWidth()/2, panel.getHeight()/2);
-        for(Desenho s : shapes)
-            s.desenhar(g);
+        Figura.setMeio(panel.getWidth()/2, panel.getHeight()/2);
+        for(Figura s : shapes)
+            if(s != null)
+                s.desenhar(g);
     }
 }

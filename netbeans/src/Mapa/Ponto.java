@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Forma;
+package Mapa;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,7 +13,7 @@ import java.awt.Graphics;
  *
  * @author Chalkos
  */
-public class Ponto extends Desenho{
+public class Ponto extends Figura{
     private double x = 0;
     private double y = 0;
     

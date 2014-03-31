@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Forma;
+package Mapa;
 
 import java.awt.Graphics;
 
@@ -12,7 +12,7 @@ import java.awt.Graphics;
  *
  * @author Chalkos
  */
-public class Arco extends Desenho{
+public class Arco extends Figura{
     private int x1 = 0;
     private int x2 = 0;
     private int y1 = 0;
