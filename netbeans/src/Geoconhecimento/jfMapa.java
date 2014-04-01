@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Geoconhecimento;
 
 import Mapa.Etiqueta;
@@ -16,21 +15,23 @@ import java.awt.event.MouseEvent;
  * @author Chalkos
  */
 public class jfMapa extends javax.swing.JFrame {
+
     private Mapa mapa;
-    
+
     private int mouseDownX = 0;
     private int mouseDownY = 0;
-    
+
     private TableModel tModel;
+
     /**
      * Creates new form jfMapa
      */
     public jfMapa() {
         initComponents();
         mapa = new Mapa(this.jPanel1);
-        
-        tModel = new TableModel(new String[]{"abc","def"});
-        
+
+        tModel = new TableModel(new String[]{"abc", "def"});
+
     }
 
     /**
@@ -82,6 +83,9 @@ public class jfMapa extends javax.swing.JFrame {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel1MouseDragged(evt);
             }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPanel1MouseMoved(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -124,9 +128,9 @@ public class jfMapa extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -152,6 +156,9 @@ public class jfMapa extends javax.swing.JFrame {
         mapa.activeLabel.activate();
         mapa.desenharTudo();
         mapa.activeLabel.deactivate();
+
+        mapa.checkIntersect(evt.getX(), evt.getY());
+
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
@@ -190,9 +197,19 @@ public class jfMapa extends javax.swing.JFrame {
 
     private void jPanel1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jPanel1MouseWheelMoved
         double sentidoActual = evt.getPreciseWheelRotation();
-        
-        jSlider1.setValue(jSlider1.getValue() - ((int)(sentidoActual*30)));
+
+        jSlider1.setValue(jSlider1.getValue() - ((int) (sentidoActual * 30)));
     }//GEN-LAST:event_jPanel1MouseWheelMoved
+
+    private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
+
+        mapa.activeLabel.setPosition(evt.getX(), evt.getY());
+        mapa.activeLabel.setText("Pos: (" + mapa.mouseXtoMapX(evt.getX()) + ", " + mapa.mouseYtoMapY(evt.getY()) + ")");
+        mapa.activeLabel.activate();
+        mapa.desenharTudo();
+        mapa.activeLabel.deactivate();
+
+    }//GEN-LAST:event_jPanel1MouseMoved
 
     /**
      * @param args the command line arguments
@@ -201,7 +218,7 @@ public class jfMapa extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
