@@ -23,6 +23,8 @@ public class Parser {
     public static final int TIPO_BOOLEAN = 1;
     public static final int TIPO_LISTA = 2;
     
+    public static Prolog conhecimento; 
+    
     // testes
     public static void main(String[] args){
         ArrayList<String> testes = new ArrayList<>();
@@ -36,8 +38,10 @@ public class Parser {
         
         //Pattern p = new Pattern("\\[(.*)\\]"); //a word pattern
         //Pattern p = new Pattern("(?<!\"\\]),(?!\"\\[)");
-        Pattern p = new Pattern(",");
+          Pattern p = new Pattern(",");
         
+         
+
         for( String test_original : testes ){
             String test = test_original.substring(1, test_original.length()-1);
             RETokenizer tok=new RETokenizer(p,test);
@@ -62,6 +66,19 @@ public class Parser {
         }
     }
     
+   
+  
+    public Boolean converteBoolean(String resultado){
+        switch (resultado) {
+            case "true":
+                return new Boolean(true);
+            case "false":
+                return new Boolean(false);
+        }
+        return null;
+             
+    }
+    
     public static String[] parseList(String input){
         // falhar caso não seja uma lista
         if( !input.startsWith("[") || !input.endsWith("]")){
@@ -71,11 +88,13 @@ public class Parser {
         
         ArrayList<String> elementos = new ArrayList<>();
         
+        
         //encontrar todos os elementos da lista
         
         
         return (String[])elementos.toArray();
     }
+    
     
     
 }
