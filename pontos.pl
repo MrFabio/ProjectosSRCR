@@ -36,6 +36,7 @@ arco(p7,p3).
 arco(p7,p4).
 arco(p4,p5).
 arco(p1,p4).
+arco(p4,p1).
 
 % -----------------------------------
 % predicado distancias entre as lojas
