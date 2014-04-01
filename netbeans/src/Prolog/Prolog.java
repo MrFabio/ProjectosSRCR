@@ -10,6 +10,7 @@ package Prolog;
  *
  * @author Chalkos
  */
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,18 +44,17 @@ public class Prolog{
     
     public Boolean check(String queryS){
         try {
-            //String query = “predicate(‘term’,’term2’).”;
-            
             HashMap map = new HashMap(); 
             return sp.query(queryS,map);
         } catch (SPException ex) {
-            Logger.getLogger(Prolog.class.getName()).log(Level.SEVERE, null, ex);
-            System.exit(1);
+            //Logger.getLogger(Prolog.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
     
-    public String getResults(String queryS){
+    
+    public String getStringResults(String queryS){
+       
         StringBuilder results = new StringBuilder();
         try {
             //String queryS = “predicate(‘term’,X).”;
@@ -63,6 +63,7 @@ public class Prolog{
             Query query = sp.openPrologQuery(queryS,map);
             while (query.nextSolution()) {
                 //System.out.println(map.toString());
+                
                 results.append(map.toString());
             } 
             query.close();
@@ -77,6 +78,30 @@ public class Prolog{
             System.exit(1);
         }
         return results.toString();
+    }
+    
+    
+    public ArrayList<String> getResults(String queryS){
+        ArrayList<String> resultados = new ArrayList<>();
+        HashMap map = new HashMap();
+        try {
+            Query query = sp.openPrologQuery(queryS,map);
+            while (query.nextSolution()) {
+                //results.append(map.toString());
+                resultados.add(map.values().toArray()[0].toString());
+            } 
+            query.close();
+        } catch (SPException ex) {
+            Logger.getLogger(Prolog.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(1);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Prolog.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(1);
+        } catch (Exception ex) {
+            Logger.getLogger(Prolog.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(1);
+        }
+        return resultados;
     }
 
     //Load SICStus script 
