@@ -39,12 +39,12 @@ public class Mapa {
         shapes.add(activeLabel);
     }
 
-    public int mouseXtoMapX(int mouseX) {
-        return (int) ((mouseX - meioX) / zoom - offsetX);
+    public double mouseXtoMapX(int mouseX) {
+        return ((mouseX - meioX) / zoom - offsetX);
     }
 
-    public int mouseYtoMapY(int mouseY) {
-        return (int) ((mouseY - meioY) / zoom - offsetY);
+    public double mouseYtoMapY(int mouseY) {
+        return ((mouseY - meioY) / zoom - offsetY);
     }
 
     public void desenharPonto(int x, int y) {
@@ -66,20 +66,29 @@ public class Mapa {
         }
     }
 
-    public void checkIntersect(int x, int y) {
+    public void pontoIntersect(int mouseX, int mouseY) {
 
-        x = mouseXtoMapX(x);
-        y = mouseYtoMapY(y);
+        double x = mouseXtoMapX(mouseX);
+        double y = mouseYtoMapY(mouseY);
         //System.out.println(shapes.size());
         for (Figura s : shapes) {
             if (s != null && s.getClass() == Ponto.class) {
                 Ponto p = (Ponto) s;
 
-                if (p.getDiametro() / 2 >= Math.sqrt(Math.pow(p.getCenterX() - x, 2) + Math.pow(p.getCenterY() - y, 2))) {
-                    System.out.println("TÁ LÁ DENTRO !!!! diam=" + p.getDiametro() + " x=" + x + " y=" + y);
+                
+                if (p.getDiametro() / 2.0 >= Math.sqrt(Math.pow(p.getCenterX() - x, 2) + Math.pow(p.getCenterY() - y, 2))) {
+                    //System.out.println("intersect!!!! diam=" + p.getDiametro() + " x=" + x + " y=" + y);
+                    
+                    activeLabel.setPosition(mouseX, mouseY);
+                    activeLabel.setText(p.getNome());
+                    activeLabel.activate();
+                    desenharTudo();
+                    //activeLabel.desenhar(g);
+                    activeLabel.deactivate();
+                    return;
                 }
             }
         }
-
+        desenharTudo();
     }
 }

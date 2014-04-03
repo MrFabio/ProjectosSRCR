@@ -10,13 +10,13 @@ nodo(p1).
 nodo(p2).
 
 posicao(p1, 0, 0).
-posicao(p2, 2, 2).
-posicao(p3, 4, 6).
-posicao(p4, 5, 7).
-posicao(p5, 6, 8).
-posicao(p6, 7, 9).
-posicao(p7, 8, 0).
-posicao(p25, 9, 9).
+posicao(p2, 5, 5).
+posicao(p3, 8, 12).
+posicao(p4, 10, 14).
+posicao(p5, 12, 16).
+posicao(p6, 14, 18).
+posicao(p7, 16, 0).
+posicao(p25, 18, 18).
 
 % -----------------------------------
 % define serviços nos pontos de interesse

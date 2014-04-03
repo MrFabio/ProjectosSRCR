@@ -59,13 +59,15 @@ public class Ponto extends Figura{
         propriedades.setPropriedades(p);
     }
 
-    int getCenterY() {
-
-        return (int) (y + diametro / 2);
+    double getCenterY() {
+        return (y + diametro / 2.0);
     }
 
-    int getCenterX() {
+    double getCenterX() {
+        return (x + diametro / 2.0);
+    }
 
-        return (int) (x + diametro / 2);
+    double getDiametro() {
+        return diametro;
     }
 }

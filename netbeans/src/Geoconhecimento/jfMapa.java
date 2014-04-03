@@ -109,7 +109,7 @@ public class jfMapa extends javax.swing.JFrame {
         );
 
         jSlider1.setMajorTickSpacing(50);
-        jSlider1.setMaximum(500);
+        jSlider1.setMaximum(1000);
         jSlider1.setMinimum(20);
         jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
         jSlider1.setValue(100);
@@ -160,14 +160,7 @@ public class jfMapa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        mapa.activeLabel.setPosition(evt.getX(), evt.getY());
-        mapa.activeLabel.setText("Pos: (" + evt.getX() + ", " + evt.getY() + ")");
-        mapa.activeLabel.activate();
-        mapa.desenharTudo();
-        mapa.activeLabel.deactivate();
-
-        mapa.checkIntersect(evt.getX(), evt.getY());
-
+        // nada por agora
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
@@ -211,13 +204,15 @@ public class jfMapa extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseWheelMoved
 
     private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
-
+        
+        mapa.pontoIntersect(evt.getX(), evt.getY());
+        /*
         mapa.activeLabel.setPosition(evt.getX(), evt.getY());
         mapa.activeLabel.setText("Pos: (" + mapa.mouseXtoMapX(evt.getX()) + ", " + mapa.mouseYtoMapY(evt.getY()) + ")");
         mapa.activeLabel.activate();
         mapa.desenharTudo();
         mapa.activeLabel.deactivate();
-
+        */
     }//GEN-LAST:event_jPanel1MouseMoved
 
     /**
