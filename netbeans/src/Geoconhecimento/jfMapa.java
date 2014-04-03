@@ -9,13 +9,18 @@ package Geoconhecimento;
 import Mapa.Etiqueta;
 import Mapa.Mapa;
 import Mapa.Figura;
+import Mapa.Ponto;
+import Prolog.Parser;
+import Prolog.Prolog;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  *
  * @author Chalkos
  */
 public class jfMapa extends javax.swing.JFrame {
+    private Geoconhecimento geoconhecimento;
     private Mapa mapa;
     
     private int mouseDownX = 0;
@@ -27,9 +32,14 @@ public class jfMapa extends javax.swing.JFrame {
      */
     public jfMapa() {
         initComponents();
-        mapa = new Mapa(this.jPanel1);
+        
+        geoconhecimento = new Geoconhecimento();
+        
+        mapa = new Mapa(this.jPanel1, geoconhecimento.getPontos());
         
         tModel = new TableModel(new String[]{"abc","def"});
+        
+        
         
     }
 

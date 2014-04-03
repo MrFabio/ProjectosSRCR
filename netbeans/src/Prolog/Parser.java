@@ -3,98 +3,238 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Prolog;
 
-import static java.lang.System.exit;
+import Mapa.Ponto;
+import Prolog.Propriedades;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jregex.Matcher;
-import jregex.Pattern;
-import jregex.RETokenizer;
+import se.sics.jasper.Query;
+import se.sics.jasper.SICStus;
+import se.sics.jasper.SPException;
 
 /**
  *
- * @author Chalkos
+ * @author duarteduarte
  */
 public class Parser {
-    public static final int TIPO_UNKNOWN = 0;
-    public static final int TIPO_BOOLEAN = 1;
-    public static final int TIPO_LISTA = 2;
-    
-    public static Prolog conhecimento; 
-    
-    // testes
-    public static void main(String[] args){
-        ArrayList<String> testes = new ArrayList<>();
-        
-        testes.add("[]");
-        testes.add("[1,2]");
-        testes.add("[1]");
-        testes.add("[1,2,[34,45],4]");
-        testes.add("[1,2,[34,45],4,[34,45],5]");
-        testes.add("[1,2,[34,45]]");
-        
-        //Pattern p = new Pattern("\\[(.*)\\]"); //a word pattern
-        //Pattern p = new Pattern("(?<!\"\\]),(?!\"\\[)");
-          Pattern p = new Pattern(",");
-        
-         
 
-        for( String test_original : testes ){
-            String test = test_original.substring(1, test_original.length()-1);
-            RETokenizer tok=new RETokenizer(p,test);
-            System.out.println("String: " + test);
-            while(tok.hasMore())
-                System.out.print("\n   "+tok.nextToken());
-            System.out.println("");
+    private SICStus sp;
+
+    public Parser(Prolog p) {
+        this.sp = p.sp;
+    }
+    
+    /**
+     * Obtém a distância entre dois pontos
+     * @param origem ponto origem
+     * @param destino ponto destino
+     * @return a distancia entre os pontos
+     */
+    public float distanciaEntrePontos(String origem, String destino) {
+        float res = -1;
+        String resultado = "";
+        StringBuilder resultadoManipulado = new StringBuilder();
+        HashMap map = new HashMap();
+        
+        // distancia(p1,p2).
+        String queryS = "distancia(" + origem + "," + destino + ", X ).";
+
+        Query query;
+        try {
+            query = sp.openPrologQuery(queryS, map);
+            while (query.nextSolution()) {
+                //System.out.println(map.toString());
+                resultado = map.toString();
+            }
+            query.close();
+        } catch (SPException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        exit(0);
+        // resposta:
+        // X = 2938.23
+        int i = 0;
+        for (i = 3; i < resultado.length() - 1; i++) {
+            resultadoManipulado.append(resultado.charAt(i));
+        }
+        res = Float.parseFloat(resultadoManipulado.toString());
+        //System.out.println(res);
+        return res;
+    }
+    
+    /**
+     * Obtém o custo do melhor caminho entre dois pontos
+     * @param origem ponto de partida
+     * @param destino ponto de chegada
+     * @return o melhor caminho entre os pontos especificados
+     */
+    public float custoMelhorCaminho(String origem, String destino) {
+        float res = -1;
+        String resultado = "";
+        StringBuilder resultadoManipulado = new StringBuilder();
+        HashMap map = new HashMap();
         
-        for( String test : testes ){
-            Matcher m = p.matcher(test);
-            if(m.matches()){
-                System.out.print("matches " + test + "\n   matches: ");
-                for(String group : m.groups())
-                    System.out.print(group + "\n   ");
-                System.out.println("");
-            }else{
-                System.out.println("failed " + test);
+        String queryS = "melhorCaminho(" + origem + "," + destino + ", X).";
+
+        Query query;
+        try {
+            query = sp.openPrologQuery(queryS, map);
+            while (query.nextSolution()) {
+                //System.out.println(map.toString());
+                resultado = map.toString();
+            }
+            query.close();
+        } catch (SPException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // X = 23746.3234
+        int i = 0;
+        for (i = 3; i < resultado.length() - 1; i++) {
+            resultadoManipulado.append(resultado.charAt(i));
+        }
+        if (!resultadoManipulado.toString().equals("")) {
+            res = Float.parseFloat(resultadoManipulado.toString());
+        }
+        //System.out.println(res);
+        return res;
+    }
+    
+    /**
+     * Obtém todos os pontos
+     * @return todos os pontos
+     */
+    public ArrayList<Ponto> todosOsPontos() {
+        ArrayList<Ponto> res = new ArrayList<Ponto>();
+        String resultado = "";
+        StringBuilder resultadoManipulado = new StringBuilder();
+        HashMap map = new HashMap();
+
+        String queryS = "findall((N,X,Y),posicao(N,X,Y),Bag).";
+
+        Query query;
+        try {
+            query = sp.openPrologQuery(queryS, map);
+            while (query.nextSolution()) {
+                //System.out.println(map.toString());
+                resultado = map.toString();
+            }
+            query.close();
+        } catch (SPException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        int i = 0;
+        for (i = 5; i < resultado.length() - 1; i++) {
+            if (resultado.charAt(i) != '.' && resultado.charAt(i) != '(' && resultado.charAt(i) != ')'
+                    && resultado.charAt(i) != '[' && resultado.charAt(i) != ']') {
+                resultadoManipulado.append(resultado.charAt(i));
             }
         }
-    }
-    
-   
-  
-    public Boolean converteBoolean(String resultado){
-        switch (resultado) {
-            case "true":
-                return new Boolean(true);
-            case "false":
-                return new Boolean(false);
+
+        String[] r = resultadoManipulado.toString().split(",");
+        String tmp = "";
+        int x, y;
+        i = 0;
+        while (i < r.length) {
+
+            if (r[i].startsWith("p")) {
+                //System.out.println(r[i]);
+                tmp = r[i];
+                i += 2;
+                x = Integer.parseInt(r[i]);
+                i++;
+                y = Integer.parseInt(r[i]);
+                Ponto p = new Ponto(tmp, x, y);
+                res.add(p);
+                //System.out.println("x:" + x + " y:" + y);
+            }
+            i++;
         }
-        return null;
-             
+        //System.out.println(res);
+        return res;
     }
-    
-    public static String[] parseList(String input){
-        // falhar caso não seja uma lista
-        if( !input.startsWith("[") || !input.endsWith("]")){
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, "Not a list.");
+
+    public void setPropriedadesDoPonto(Ponto ponto) {
+        String resultado = "";
+        StringBuilder resultadoManipulado = new StringBuilder();
+        HashMap map = new HashMap();
+
+        String queryS = "findall((A,B),propriedade(" + ponto.getNome() + ",A,B),Bag).";
+
+        Query query;
+        try {
+            query = sp.openPrologQuery(queryS, map);
+            while (query.nextSolution()) {
+                //System.out.println(map.toString());
+                resultado = map.toString();
+            }
+            query.close();
+        } catch (SPException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //  {Bag=.(,(empresa,mcDonalds),.(,(servico,restauracao),[])), A=_142, B=_162}
+        HashMap<String, String> propriedades = parserPropriedades(resultado);
+        ponto.setPropriedades(propriedades);
+    }
+
+    private static HashMap<String, String> parserPropriedades(String toParser) {
+        HashMap<String, String> res = new HashMap<>();
+        if (toParser == null || toParser.equals("")) {
             return null;
         }
-        
-        ArrayList<String> elementos = new ArrayList<>();
-        
-        
-        //encontrar todos os elementos da lista
-        
-        
-        return (String[])elementos.toArray();
+        String[] r = toParser.toString().split(",");
+        String tmp = "";
+        String tmp1 = "";
+        String tmp2 = "";
+        int x, y;
+        int i = 0;
+        while (i < r.length) {
+
+            if (!r[i].startsWith("{") && !r[i].startsWith(",") && !r[i].startsWith(".") && !r[i].startsWith("[")
+                    && !r[i].startsWith("A") && !r[i].startsWith("B")) {
+                //System.out.println(r[i]);
+                tmp = r[i];
+                if (r[i].charAt(0) == '(') {
+                    tmp1 = tmp.substring(1);
+                }
+                if (r[i].charAt(r[i].length() - 1) == ')') {
+                    tmp1 = tmp.substring(0, tmp.length() - 1);
+                }
+                i += 1;
+                tmp = r[i];
+                if (r[i].charAt(0) == '(') {
+                    tmp2 = tmp.substring(1);
+                }
+                if (r[i].charAt(r[i].length() - 1) == ')') {
+                    tmp2 = tmp.substring(0, tmp.length() - 1);
+                }
+                res.put(tmp1, tmp2);
+                //System.out.println("x:" + x + " y:" + y);
+            }
+            i++;
+        }
+        return res;
     }
-    
-    
-    
+
 }

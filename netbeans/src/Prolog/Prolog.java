@@ -20,7 +20,7 @@ import se.sics.jasper.SPException;
 
 public class Prolog{
     //Java Object to Interact with SICStus virtual Machine 
-    SICStus sp; 
+    protected SICStus sp; 
     
     //Construtor
     public Prolog(String pathToFile){
@@ -31,10 +31,6 @@ public class Prolog{
             Logger.getLogger(Prolog.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(1);
         }
-    }
-
-    Prolog() {
-        
     }
     
     //Initalize SICStus virtual machine 

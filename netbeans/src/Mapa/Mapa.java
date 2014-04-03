@@ -29,17 +29,11 @@ public class Mapa {
     
     public final Etiqueta activeLabel = new Etiqueta();
 
-    public Mapa(JPanel panel) {
+    public Mapa(JPanel panel, ArrayList<Ponto> pontos) {
         this.panel = panel;
         this.g = panel.getGraphics();
-        shapes.add(new Ponto(-10,-10));
-        shapes.add(new Ponto(-10,10));
-        shapes.add(new Ponto(10,10));
-        shapes.add(new Ponto(10,-10));
-        shapes.add(new Arco(0,20,0,-20));
-        shapes.add(new Arco(20,0,-20,0));
-        shapes.add(new Ponto(0,0, new Color(255, 0, 0)));
         
+        shapes.addAll(pontos);
         
         shapes.add(activeLabel);
     }
