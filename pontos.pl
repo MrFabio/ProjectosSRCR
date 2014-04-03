@@ -110,3 +110,15 @@ min(X,Y,Y):- X>=Y.
 
 minLista([H],H).
 minLista([H|T],X):- minLista(T,M), X is min(H,M).
+
+% encontrar todos os arcos
+
+todosArcos(Bag):-findall((X,Y),arco(X,Y),Bag).
+ 
+ 
+coordenadasPontos((X,Y),X1,Y1,X2,Y2):- posicao(X,X1,Y1),posicao(Y,X2,Y2).
+ 
+todosPontosArcos([],[]).
+todosPontosArcos([H|T],[(X1,Y1,X2,Y2)|P]):- coordenadasPontos(H,X1,Y1,X2,Y2),todosPontosArcos(T,P).
+ 
+predicadoTotalArcos(L):-todosArcos(Bag),todosPontosArcos(Bag,L).

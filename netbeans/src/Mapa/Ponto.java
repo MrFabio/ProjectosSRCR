@@ -58,6 +58,10 @@ public class Ponto extends Figura{
     public void setPropriedades(HashMap<String, String> p){
         propriedades.setPropriedades(p);
     }
+    
+    public HashMap<String, String> getPropriedades(){
+        return propriedades.getPropriedades();
+    }
 
     double getCenterY() {
         return (y + diametro / 2.0);

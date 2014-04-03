@@ -38,9 +38,11 @@ public class jfMapa extends javax.swing.JFrame {
         
         mapa = new Mapa(this.jPanel1, geoconhecimento.getPontos());
         
-        tModel = new TableModel(new String[]{"abc","def"});
+        tModel = new TableModel(new String[]{"Propriedade","Valor"});
         
+        jTable1.setModel(tModel);
         
+        Figura.setZoom(jSlider1.getValue());
     }
 
     /**
@@ -160,7 +162,7 @@ public class jfMapa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        // nada por agora
+        mapa.updateTable(geoconhecimento, tModel, evt.getX(), evt.getY());
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
@@ -205,7 +207,7 @@ public class jfMapa extends javax.swing.JFrame {
 
     private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
         
-        mapa.pontoIntersect(evt.getX(), evt.getY());
+        mapa.showLabel(evt.getX(), evt.getY());
         /*
         mapa.activeLabel.setPosition(evt.getX(), evt.getY());
         mapa.activeLabel.setText("Pos: (" + mapa.mouseXtoMapX(evt.getX()) + ", " + mapa.mouseYtoMapY(evt.getY()) + ")");

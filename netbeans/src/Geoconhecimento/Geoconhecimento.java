@@ -36,4 +36,8 @@ public class Geoconhecimento {
     public ArrayList<Ponto> getPontos(){
         return parser.todosOsPontos();
     }
+    
+    public void actualizarPropriedades(Ponto p){
+        parser.setPropriedadesDoPonto(p);
+    }
 }
