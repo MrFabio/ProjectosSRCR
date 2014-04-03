@@ -5,16 +5,9 @@
  */
 package Mapa;
 
-import Mapa.Arco;
-import Mapa.Figura;
 import static Mapa.Figura.*;
-import Mapa.Ponto;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Label;
-import java.awt.Shape;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -40,7 +33,6 @@ public class Mapa {
         shapes.add(new Arco(0, 20, 0, -20));
         shapes.add(new Arco(20, 0, -20, 0));
         shapes.add(new Ponto(0, 0, new Color(255, 0, 0)));
-
         shapes.add(activeLabel);
     }
 

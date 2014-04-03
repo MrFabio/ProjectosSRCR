@@ -8,7 +8,9 @@ package Geoconhecimento;
 import Mapa.Etiqueta;
 import Mapa.Mapa;
 import Mapa.Figura;
+import Mapa.Ponto;
 import java.awt.event.MouseEvent;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -31,6 +33,7 @@ public class jfMapa extends javax.swing.JFrame {
         mapa = new Mapa(this.jPanel1);
 
         tModel = new TableModel(new String[]{"abc", "def"});
+        lerpontos(",p1,,0,0,,p2,,2,2,,p3,,4,6,,p4,,5,7,,p5,,6,8,,p6,,7,9,,p7,,8,0,, N=_139, Y=_179, X=_159");
 
     }
 
@@ -244,6 +247,26 @@ public class jfMapa extends javax.swing.JFrame {
                 new jfMapa().setVisible(true);
             }
         });
+    }
+
+    private void lerpontos(String lista) {
+        String[] r = lista.split(",");
+
+        int i = 0, x, y;
+        while (i < r.length) {
+
+            if (r[i].startsWith("p")) {
+                //System.out.println(r[i]);
+                i += 2;
+                x = Integer.parseInt(r[i]);
+                i++;
+                y = Integer.parseInt(r[i]);
+                Ponto p = new Ponto(x, y);
+                System.out.println("x:" + x + " y:" + y);
+            }
+            i++;
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
