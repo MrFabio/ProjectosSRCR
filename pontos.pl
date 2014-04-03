@@ -16,16 +16,22 @@ posicao(p4, 5, 7).
 posicao(p5, 6, 8).
 posicao(p6, 7, 9).
 posicao(p7, 8, 0).
+posicao(p25, 9, 9).
 
 % -----------------------------------
 % define serviços nos pontos de interesse
 % servico(nome_loja, nome_servico).
+%servico(p1, mcDonalds).
+%servico(p2, combustivel).
+%servico(p3, lavandaria).
+%servico(p7, mcDonalds).
 
-servico(p1, McDonalds).
-servico(p2, Combustivel).
-servico(p3, Lavandaria).
+%propriedade( nodo, chave, valor ).
+propriedade( p1, empresa, mcDonalds ).
+propriedade( p1, servico, restauracao).
+propriedade( p2, servico, lavadaria).
 
-servico(p7, McDonalds).
+
 
 % -----------------------------------
 % define ligações entre pontos
@@ -104,18 +110,3 @@ min(X,Y,Y):- X>=Y.
 
 minLista([H],H).
 minLista([H|T],X):- minLista(T,M), X is min(H,M).
-
-% -----------------------------------
-% predicado pontos numa regiao
-% orla( X, Y, distanciaMax, ListaPontos )
-
-% é preciso a cena de obter todas as soluções do pontoProximo
-
-% -----------------------------------
-% predicado ponto de interesse mais proximo
-% pontoMaisProximo( X, Y, P )
-
-% pontoMaisProximo( X, Y, P ) :-
-% mais próximo que quê?
-% usar uma lista de todas as distancias? é preciso ver o dijkstra que o 12 encontrou.
-
