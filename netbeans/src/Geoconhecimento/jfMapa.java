@@ -9,14 +9,17 @@ import Mapa.Etiqueta;
 import Mapa.Mapa;
 import Mapa.Figura;
 import Mapa.Ponto;
+import Prolog.Parser;
+import Prolog.Prolog;
 import java.awt.event.MouseEvent;
-import java.util.StringTokenizer;
+import java.util.ArrayList;
 
 /**
  *
  * @author Chalkos
  */
 public class jfMapa extends javax.swing.JFrame {
+    private Geoconhecimento geoconhecimento;
 
     private Mapa mapa;
 
@@ -30,11 +33,16 @@ public class jfMapa extends javax.swing.JFrame {
      */
     public jfMapa() {
         initComponents();
-        mapa = new Mapa(this.jPanel1);
-
-        tModel = new TableModel(new String[]{"abc", "def"});
-        lerpontos(",p1,,0,0,,p2,,2,2,,p3,,4,6,,p4,,5,7,,p5,,6,8,,p6,,7,9,,p7,,8,0,, N=_139, Y=_179, X=_159");
-
+        
+        geoconhecimento = new Geoconhecimento();
+        
+        mapa = new Mapa(this.jPanel1, geoconhecimento.getPontos());
+        
+        tModel = new TableModel(new String[]{"Propriedade","Valor"});
+        
+        jTable1.setModel(tModel);
+        
+        Figura.setZoom(jSlider1.getValue());
     }
 
     /**
@@ -103,7 +111,7 @@ public class jfMapa extends javax.swing.JFrame {
         );
 
         jSlider1.setMajorTickSpacing(50);
-        jSlider1.setMaximum(500);
+        jSlider1.setMaximum(1000);
         jSlider1.setMinimum(20);
         jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
         jSlider1.setValue(100);
@@ -154,14 +162,7 @@ public class jfMapa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        mapa.activeLabel.setPosition(evt.getX(), evt.getY());
-        mapa.activeLabel.setText("Pos: (" + evt.getX() + ", " + evt.getY() + ")");
-        mapa.activeLabel.activate();
-        mapa.desenharTudo();
-        mapa.activeLabel.deactivate();
-
-        mapa.checkIntersect(evt.getX(), evt.getY());
-
+        mapa.updateTable(geoconhecimento, tModel, evt.getX(), evt.getY());
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
@@ -205,13 +206,15 @@ public class jfMapa extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseWheelMoved
 
     private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
-
+        
+        mapa.showLabel(evt.getX(), evt.getY());
+        /*
         mapa.activeLabel.setPosition(evt.getX(), evt.getY());
         mapa.activeLabel.setText("Pos: (" + mapa.mouseXtoMapX(evt.getX()) + ", " + mapa.mouseYtoMapY(evt.getY()) + ")");
         mapa.activeLabel.activate();
         mapa.desenharTudo();
         mapa.activeLabel.deactivate();
-
+        */
     }//GEN-LAST:event_jPanel1MouseMoved
 
     /**
@@ -247,26 +250,6 @@ public class jfMapa extends javax.swing.JFrame {
                 new jfMapa().setVisible(true);
             }
         });
-    }
-
-    private void lerpontos(String lista) {
-        String[] r = lista.split(",");
-
-        int i = 0, x, y;
-        while (i < r.length) {
-
-            if (r[i].startsWith("p")) {
-                //System.out.println(r[i]);
-                i += 2;
-                x = Integer.parseInt(r[i]);
-                i++;
-                y = Integer.parseInt(r[i]);
-                Ponto p = new Ponto(x, y);
-                System.out.println("x:" + x + " y:" + y);
-            }
-            i++;
-        }
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

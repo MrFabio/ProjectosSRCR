@@ -20,9 +20,7 @@ public abstract class Figura {
     protected static int meioY = 0;
     protected static double offsetX = 20;
     protected static double offsetY = 20;
-    protected Color color = new Color(0, 0, 0);
-
-    protected ArrayList<String[]> propriedades = new ArrayList<>();
+    protected Color color = Mapa.normal;
 
     public abstract void desenhar(Graphics g);
 
@@ -72,13 +70,5 @@ public abstract class Figura {
 
     public void setColor(Color color) {
         this.color = color;
-    }
-
-    public void addProperty(String name, String value) {
-        //clonagem
-        String[] row = new String[2];
-        row[0] = new String(name);
-        row[1] = new String(value);
-        propriedades.add(row);
     }
 }

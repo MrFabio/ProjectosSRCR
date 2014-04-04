@@ -21,8 +21,8 @@ public class Etiqueta extends Figura{
     
     private int x = 0;
     private int y = 0;
-    private int width = 120;
-    private int heigth = 26;
+    private int width = 50;
+    private int heigth = 20;
     private boolean active = false;
     
     public void setPosition(int x, int y){

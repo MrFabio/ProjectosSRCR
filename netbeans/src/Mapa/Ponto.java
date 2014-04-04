@@ -5,21 +5,25 @@
  */
 package Mapa;
 
+import Prolog.Propriedades;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.HashMap;
 
 /**
  *
  * @author Chalkos
  */
-public class Ponto extends Figura {
-
+public class Ponto extends Figura{
+    private Propriedades propriedades = null;
+    
     private double x = 0;
     private double y = 0;
-
-    private double diametro = 10;
-
-    public Ponto(int x, int y) {
+    
+    private double diametro = 2;
+    
+    
+    public Ponto(int x, int y){
         super();
         this.x = x - diametro / 2;
         this.y = y - diametro / 2;
@@ -30,16 +34,9 @@ public class Ponto extends Figura {
         this.color = c;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public double getDiametro() {
-        return diametro;
+    public Ponto(String nome, int x, int y){
+        this(x,y);
+        propriedades = new Propriedades(nome);
     }
 
     @Override
@@ -51,15 +48,30 @@ public class Ponto extends Figura {
          System.out.println(getX(x) + " - " + getY(y) + " - " + getWidth(diametro) + " - " + getHeigth(diametro));
          }*/
     }
-
-    int getCenterX() {
-
-        return (int) (x + diametro / 2);
+    
+    public String getNome(){
+        if( propriedades != null)
+            return propriedades.getNome();
+        return null;
+    }
+    
+    public void setPropriedades(HashMap<String, String> p){
+        propriedades.setPropriedades(p);
+    }
+    
+    public HashMap<String, String> getPropriedades(){
+        return propriedades.getPropriedades();
     }
 
-    int getCenterY() {
-
-        return (int) (y + diametro / 2);
+    double getCenterY() {
+        return (y + diametro / 2.0);
     }
 
+    double getCenterX() {
+        return (x + diametro / 2.0);
+    }
+
+    double getDiametro() {
+        return diametro;
+    }
 }
