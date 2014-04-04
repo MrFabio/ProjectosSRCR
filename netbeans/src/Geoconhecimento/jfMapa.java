@@ -11,6 +11,7 @@ import Mapa.Figura;
 import Mapa.Ponto;
 import Prolog.Parser;
 import Prolog.Prolog;
+import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -191,7 +192,17 @@ public class jfMapa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        mapa.updateTable(geoconhecimento, tModel, evt.getX(), evt.getY());
+        int ctrldown = CTRL_DOWN_MASK;
+        
+        if ((evt.getModifiersEx() & CTRL_DOWN_MASK) == CTRL_DOWN_MASK) {
+            // calcular caminho
+            mapa.caminhoMaisCurto(geoconhecimento, tModel, evt.getX(), evt.getY());
+        }else{
+            // clique simples
+            mapa.updateTable(geoconhecimento, tModel, evt.getX(), evt.getY());
+        }
+        
+        
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged

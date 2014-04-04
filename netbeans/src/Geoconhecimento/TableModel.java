@@ -67,4 +67,8 @@ public class TableModel extends AbstractTableModel{
         
         fireTableDataChanged();
     }
+    
+    public void setCaminho(){
+        
+    }
 }

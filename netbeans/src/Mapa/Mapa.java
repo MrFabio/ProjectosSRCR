@@ -143,4 +143,49 @@ public class Mapa {
             }
         }
     }
+
+    public void caminhoMaisCurto(Geoconhecimento gc, TableModel model, int mouseX, int mouseY) {
+        Ponto origem = null;
+        for (Figura s : shapes) {
+            if (s != null && s.getClass() == Ponto.class) {
+                Ponto p = (Ponto) s;
+                
+                if(p.color == selected){
+                    origem = p;
+                    break;
+                }
+            }
+        }
+        
+        if( origem != null){
+            double x = mouseXtoMapX(mouseX);
+            double y = mouseYtoMapY(mouseY);
+            //System.out.println(shapes.size());
+            for (Figura s : shapes) {
+                if (s != null && s.getClass() == Ponto.class) {
+                    Ponto destino = (Ponto) s;
+
+
+                    if (destino.getDiametro() / 2.0 >= Math.sqrt(Math.pow(destino.getCenterX() - x, 2) + Math.pow(destino.getCenterY() - y, 2))) {
+                        //System.out.println("intersect!!!! diam=" + p.getDiametro() + " x=" + x + " y=" + y);
+
+                        destino.color = destination;
+                        
+                        // obter o caminhho mais curto
+                        // colorir os arcos
+                        // obter as distancias e o total
+                        // preencher a tabela
+                        
+                        model.setCaminho();
+                        
+                        desenharTudo();
+
+                        return;
+                    }
+                }
+            }
+        }else
+            updateTable(gc, model, mouseX, mouseY);
+        
+    }
 }

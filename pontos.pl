@@ -122,3 +122,27 @@ todosPontosArcos([],[]).
 todosPontosArcos([H|T],[(X1,Y1,X2,Y2)|P]):- coordenadasPontos(H,X1,Y1,X2,Y2),todosPontosArcos(T,P).
  
 predicadoTotalArcos(L):-todosArcos(Bag),todosPontosArcos(Bag,L).
+
+% encontrar todos os pontos do melhor caminho
+
+melhorPercursoPontos(O,D,C):-
+	caminhos2(O,D,Lc),
+	transformaCamsEmVals(Lc,Vals),
+	minLista(Vals,Min),
+	obtemCaminhoPeloValor(Min, Vals, Lc, C).
+
+% valor_alvo, listaValores, listaCaminhos, caminho_resultado
+obtemCaminhoPeloValor(Vt,[Vt|Lv],[Ct|Lc],Ct).
+obtemCaminhoPeloValor(Vt,[Va|Lv],[Ca|Lc],Ct) :-
+	obtemCaminhoPeloValor(Vt,Lv,Lc,Ct).
+
+% encontrar todos os custos do melhor caminho
+
+melhorPercursoDistancias(O,D,V) :-
+	melhorPercursoPontos(O,D,C),
+	custosCaminho(C,V).
+
+custosCaminho([X],[]).
+custosCaminho([O,D|Resto],[Resultado|Next]):-
+	distancia(O,D,Resultado),
+	custosCaminho([D|Resto],Next).
