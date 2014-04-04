@@ -34,6 +34,8 @@ public class Geoconhecimento {
         parser = new Parser(conhecimento);
         
         //parser.distanciasDoMelhorCaminho("p1","p5");
+        Ponto p1 = new Ponto("p1", -7000, 3000);
+        parser.setPropriedadesDoPonto(p1);
     }
     
     public ArrayList<Ponto> getPontos(){

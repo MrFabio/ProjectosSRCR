@@ -45,7 +45,7 @@ posicao( p12, 5000, 13000 ).
 posicao( p13, 5000, 24000 ).
 
 %braga
-propriedade( p1, empresa, bananaCorp ).
+propriedade( p1, empresa, 'banana Corp' ).
 propriedade( p1, servico, turismo ).
 propriedade( p1, shopping, bragaparque ).
 propriedade( p1, farmacia, almiro ).

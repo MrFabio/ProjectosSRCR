@@ -59,72 +59,17 @@ public class Parser {
     }
 
     public void setPropriedadesDoPonto(Ponto ponto) {
-        String resultado = "";
-        StringBuilder resultadoManipulado = new StringBuilder();
-        HashMap map = new HashMap();
-
-        String queryS = "findall((A,B),propriedade(" + ponto.getNome() + ",A,B),Bag).";
-
-        Query query;
-        try {
-            query = sp.openPrologQuery(queryS, map);
-            while (query.nextSolution()) {
-                //System.out.println(map.toString());
-                resultado = map.toString();
-            }
-            query.close();
-        } catch (SPException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //  {Bag=.(,(empresa,mcDonalds),.(,(servico,restauracao),[])), A=_142, B=_162}
-        HashMap<String, String> propriedades = parserPropriedades(resultado);
-        ponto.setPropriedades(propriedades);
-    }
-
-    private static HashMap<String, String> parserPropriedades(String toParser) {
         HashMap<String, String> res = new HashMap<>();
-        if (toParser == null || toParser.equals("")) {
-            return null;
-        }
-        String[] r = toParser.toString().split(",");
-        String tmp = "";
-        String tmp1 = "";
-        String tmp2 = "";
-        int x, y;
-        int i = 0;
-        while (i < r.length) {
+        
+        Pattern pattern = new Pattern("\\(,\\((.*?),(.*?)\\),");
+        
+        String answer = prolog.getStringResults("findall((A,B),propriedade(" + ponto.getNome() + ",A,B),Bag).");
 
-            if (!r[i].startsWith("{") && !r[i].startsWith(",") && !r[i].startsWith(".") && !r[i].startsWith("[")
-                    && !r[i].startsWith("A") && !r[i].startsWith("B")) {
-                //System.out.println(r[i]);
-                tmp = r[i];
-                if (r[i].charAt(0) == '(') {
-                    tmp1 = tmp.substring(1);
-                }
-                if (r[i].charAt(r[i].length() - 1) == ')') {
-                    tmp1 = tmp.substring(0, tmp.length() - 1);
-                }
-                i += 1;
-                tmp = r[i];
-                if (r[i].charAt(0) == '(') {
-                    tmp2 = tmp.substring(1);
-                }
-                if (r[i].charAt(r[i].length() - 1) == ')') {
-                    tmp2 = tmp.substring(0, tmp.length() - 1);
-                }
-                
-                if( tmp1.length() > 0 && tmp2.length() > 0 )
-                    res.put(tmp1, tmp2);
-                //System.out.println("x:" + x + " y:" + y);
-            }
-            i++;
-        }
-        return res;
+        Matcher matcher=pattern.matcher(answer);
+        while(matcher.find())
+            res.put(matcher.group(1), matcher.group(2));
+
+        ponto.setPropriedades(res);
     }
     
     public ArrayList<Arco> todosOsArcos() {
