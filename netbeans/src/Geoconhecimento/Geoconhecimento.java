@@ -5,6 +5,7 @@
  */
 package Geoconhecimento;
 
+import Mapa.Arco;
 import Mapa.Ponto;
 import Prolog.Prolog;
 import java.io.File;
@@ -35,6 +36,10 @@ public class Geoconhecimento {
     
     public ArrayList<Ponto> getPontos(){
         return parser.todosOsPontos();
+    }
+    
+    public ArrayList<Arco> getArcos(){
+        return parser.todosOsArcos();
     }
     
     public void actualizarPropriedades(Ponto p){

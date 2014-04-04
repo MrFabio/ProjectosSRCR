@@ -27,6 +27,7 @@ import javax.swing.JPanel;
  */
 public class Mapa {
     protected static final Color normal = new Color(0x000000);
+    protected static final Color normalLinhas = new Color(0x666666);
     protected static final Color selected = new Color(0x0033FF);
     protected static final Color path = new Color(0xFF0000);
     protected static final Color destination = new Color(0xFF3300);
@@ -37,10 +38,11 @@ public class Mapa {
 
     public final Etiqueta activeLabel = new Etiqueta();
 
-    public Mapa(JPanel panel, ArrayList<Ponto> pontos) {
+    public Mapa(JPanel panel, ArrayList<Ponto> pontos, ArrayList<Arco> arcos) {
         this.panel = panel;
         this.g = panel.getGraphics();
         
+        shapes.addAll(arcos);
         shapes.addAll(pontos);
 
         shapes.add(activeLabel);

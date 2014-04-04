@@ -5,6 +5,7 @@
  */
 package Prolog;
 
+import Mapa.Arco;
 import Mapa.Ponto;
 import Prolog.Propriedades;
 import java.util.ArrayList;
@@ -239,8 +240,8 @@ public class Parser {
         return res;
     }
     
-    public ArrayList<String> todosOsArcos() {
-        ArrayList<String> res = new ArrayList<>();
+    public ArrayList<Arco> todosOsArcos() {
+        ArrayList<Arco> res = new ArrayList<>();
         String resultado = "";
         StringBuilder resultadoManipulado = new StringBuilder();
         HashMap map = new HashMap();
@@ -347,13 +348,19 @@ public class Parser {
                     encontrou = false;
                     
                     
-                    System.out.printf("%s %s %s %s\n", tmp1, tmp2, tmp3, tmp4);
+                    res.add( new Arco(
+                            Integer.parseInt(tmp1),
+                            Integer.parseInt(tmp2),
+                            Integer.parseInt(tmp3),
+                            Integer.parseInt(tmp4)));
+                    
+                    //System.out.printf("%s %s %s %s\n", tmp1, tmp2, tmp3, tmp4);
                 }
             }
             i++;
         }
         //System.out.println(res);
-        return null;
+        return res;
     }
 
 }

@@ -17,9 +17,14 @@ public class Arco extends Figura{
     private int x2 = 0;
     private int y1 = 0;
     private int y2 = 0;
-
-    public Arco(int x1, int y1, int x2, int y2) {
+    
+    public Arco(){
         super();
+        this.color = Mapa.normalLinhas;
+    }
+    
+    public Arco(int x1, int y1, int x2, int y2) {
+        this();
         this.x1 = x1;
         this.x2 = x2;
         this.y1 = y1;

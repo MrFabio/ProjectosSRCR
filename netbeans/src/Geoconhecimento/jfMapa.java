@@ -36,7 +36,7 @@ public class jfMapa extends javax.swing.JFrame {
         
         geoconhecimento = new Geoconhecimento();
         
-        mapa = new Mapa(this.jPanel1, geoconhecimento.getPontos());
+        mapa = new Mapa(this.jPanel1, geoconhecimento.getPontos(), geoconhecimento.getArcos());
         
         tModel = new TableModel(new String[]{"Propriedade","Valor"});
         

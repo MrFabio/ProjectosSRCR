@@ -11,7 +11,7 @@ nodo(p2).
 
 posicao(p1, 0, 0).
 posicao(p2, 5, 5).
-posicao(p3, 8, 12).
+posicao(p3, 5, 12).
 posicao(p4, 10, 14).
 posicao(p5, 12, 16).
 posicao(p6, 14, 18).
