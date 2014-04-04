@@ -13,10 +13,10 @@ import java.awt.Graphics;
  * @author Chalkos
  */
 public class Arco extends Figura{
-    private int x1 = 0;
-    private int x2 = 0;
-    private int y1 = 0;
-    private int y2 = 0;
+    protected int x1 = 0;
+    protected int x2 = 0;
+    protected int y1 = 0;
+    protected int y2 = 0;
     
     public Arco(){
         super();

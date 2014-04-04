@@ -32,6 +32,8 @@ public class Geoconhecimento {
     public Geoconhecimento(){
         conhecimento = new Prolog("..\\pontos.pl");
         parser = new Parser(conhecimento);
+        
+        //parser.distanciasDoMelhorCaminho("p1","p5");
     }
     
     public ArrayList<Ponto> getPontos(){
@@ -44,5 +46,12 @@ public class Geoconhecimento {
     
     public void actualizarPropriedades(Ponto p){
         parser.setPropriedadesDoPonto(p);
+    }
+    
+    public ArrayList<String> pontosDoCaminhoMaisCurto(Ponto origem, Ponto destino){
+        return parser.pontosDoMelhorCaminho(origem.getNome(), destino.getNome());
+    }
+    public ArrayList<Double> distanciasDoCaminhoMaisCurto(Ponto origem, Ponto destino){
+        return parser.distanciasDoMelhorCaminho(origem.getNome(), destino.getNome());
     }
 }

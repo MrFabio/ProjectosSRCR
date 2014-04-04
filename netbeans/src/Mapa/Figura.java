@@ -25,7 +25,7 @@ public abstract class Figura {
     public abstract void desenhar(Graphics g);
 
     public static void setZoom(int zoom) {
-        Figura.zoom = ((double) zoom) / 100;
+        Figura.zoom = ((double) zoom) / 10000;
     }
 
     public static void setMeio(int x, int y) {

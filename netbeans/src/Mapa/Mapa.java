@@ -119,7 +119,7 @@ public class Mapa {
                         return;
                     }
                     
-                    clearSelected();
+                    clearAll();
                     p.color = selected;
                     
                     desenharTudo();
@@ -138,8 +138,34 @@ public class Mapa {
             if (s != null && s.getClass() == Ponto.class) {
                 Ponto p = (Ponto) s;
                 
-                if(p.color == selected)
+                p.color = normal;
+            }
+        }
+    }
+    
+    private void clearPath(){
+        for (Figura s : shapes) {
+            if (s != null && s.getClass() == Ponto.class) {
+                Ponto p = (Ponto) s;
+                if( p.color != Mapa.selected )
                     p.color = normal;
+            }
+            if (s != null && s.getClass() == Arco.class) {
+                Arco a = (Arco) s;
+                a.color = Mapa.normalLinhas;
+            }
+        }
+    }
+    
+    private void clearAll(){
+        for (Figura s : shapes) {
+            if (s != null && s.getClass() == Ponto.class) {
+                Ponto p = (Ponto) s;
+                p.color = normal;
+            }
+            if (s != null && s.getClass() == Arco.class) {
+                Arco a = (Arco) s;
+                a.color = Mapa.normalLinhas;
             }
         }
     }
@@ -169,14 +195,20 @@ public class Mapa {
                     if (destino.getDiametro() / 2.0 >= Math.sqrt(Math.pow(destino.getCenterX() - x, 2) + Math.pow(destino.getCenterY() - y, 2))) {
                         //System.out.println("intersect!!!! diam=" + p.getDiametro() + " x=" + x + " y=" + y);
 
+                        
+                        // limpar cores
+                        clearPath();
                         destino.color = destination;
-                        
                         // obter o caminhho mais curto
+                        ArrayList<String> nomes = gc.pontosDoCaminhoMaisCurto(origem, destino);
                         // colorir os arcos
+                        colorirCaminho(nomes);
                         // obter as distancias e o total
+                        ArrayList<Double> distancias = gc.distanciasDoCaminhoMaisCurto(origem, destino);
                         // preencher a tabela
+                        model.setCaminho(nomes, distancias);
                         
-                        model.setCaminho();
+                        colorirCaminho(nomes);
                         
                         desenharTudo();
 
@@ -186,6 +218,49 @@ public class Mapa {
             }
         }else
             updateTable(gc, model, mouseX, mouseY);
+    }
+    
+    private void colorirCaminho(ArrayList<String> nomes){
+        // encontrar os pontos envolvidos
+        ArrayList<Ponto> pontos = new ArrayList<Ponto>();
+        for (Figura s : shapes) {
+            if (s != null && s.getClass() == Ponto.class) {
+                Ponto p = (Ponto) s;
+                
+                for (String nome : nomes)
+                    if (nome.equals(p.getNome()))
+                        pontos.add(p);
+            }
+        }
         
+        // encontrar os arcos envolvidos
+        ArrayList<Arco> arcos = new ArrayList<>();
+        for (Figura s : shapes) {
+            if (s != null && s.getClass() == Arco.class) {
+                Arco a = (Arco) s;
+                
+                for(Ponto origem : pontos){
+                    for(Ponto destino : pontos){
+                        if( a.x1 == (int)origem.originalX &&
+                            a.y1 == (int)origem.originalY &&
+                            a.x2 == (int)destino.originalX &&
+                            a.y2 == (int)destino.originalY){
+                                arcos.add(a);
+                        }
+                    }
+                }
+            }
+        }
+        
+        //pintar os arcos
+        for(Arco a : arcos){
+            a.color = Mapa.path;
+        }
+        
+        //pintar os pontos que estao a normal
+        for(Ponto p : pontos){
+            if( p.color == Mapa.normal )
+                p.color = Mapa.path;
+        }
     }
 }

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jregex.Matcher;
+import jregex.Pattern;
 import se.sics.jasper.Query;
 import se.sics.jasper.SICStus;
 import se.sics.jasper.SPException;
@@ -23,93 +25,11 @@ import se.sics.jasper.SPException;
 public class Parser {
 
     private SICStus sp;
+    private Prolog prolog;
 
     public Parser(Prolog p) {
         this.sp = p.sp;
-    }
-    
-    /**
-     * Obtém a distância entre dois pontos
-     * @param origem ponto origem
-     * @param destino ponto destino
-     * @return a distancia entre os pontos
-     */
-    public float distanciaEntrePontos(String origem, String destino) {
-        float res = -1;
-        String resultado = "";
-        StringBuilder resultadoManipulado = new StringBuilder();
-        HashMap map = new HashMap();
-        
-        // distancia(p1,p2).
-        String queryS = "distancia(" + origem + "," + destino + ", X ).";
-
-        Query query;
-        try {
-            query = sp.openPrologQuery(queryS, map);
-            while (query.nextSolution()) {
-                //System.out.println(map.toString());
-                resultado = map.toString();
-            }
-            query.close();
-        } catch (SPException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        // resposta:
-        // X = 2938.23
-        int i = 0;
-        for (i = 3; i < resultado.length() - 1; i++) {
-            resultadoManipulado.append(resultado.charAt(i));
-        }
-        res = Float.parseFloat(resultadoManipulado.toString());
-        //System.out.println(res);
-        return res;
-    }
-    
-    /**
-     * Obtém o custo do melhor caminho entre dois pontos
-     * @param origem ponto de partida
-     * @param destino ponto de chegada
-     * @return o melhor caminho entre os pontos especificados
-     */
-    public float custoMelhorCaminho(String origem, String destino) {
-        float res = -1;
-        String resultado = "";
-        StringBuilder resultadoManipulado = new StringBuilder();
-        HashMap map = new HashMap();
-        
-        String queryS = "melhorCaminho(" + origem + "," + destino + ", X).";
-
-        Query query;
-        try {
-            query = sp.openPrologQuery(queryS, map);
-            while (query.nextSolution()) {
-                //System.out.println(map.toString());
-                resultado = map.toString();
-            }
-            query.close();
-        } catch (SPException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        // X = 23746.3234
-        int i = 0;
-        for (i = 3; i < resultado.length() - 1; i++) {
-            resultadoManipulado.append(resultado.charAt(i));
-        }
-        if (!resultadoManipulado.toString().equals("")) {
-            res = Float.parseFloat(resultadoManipulado.toString());
-        }
-        //System.out.println(res);
-        return res;
+        this.prolog = p;
     }
     
     /**
@@ -118,55 +38,22 @@ public class Parser {
      */
     public ArrayList<Ponto> todosOsPontos() {
         ArrayList<Ponto> res = new ArrayList<Ponto>();
-        String resultado = "";
-        StringBuilder resultadoManipulado = new StringBuilder();
-        HashMap map = new HashMap();
-
-        String queryS = "findall((N,X,Y),posicao(N,X,Y),Bag).";
-
-        Query query;
-        try {
-            query = sp.openPrologQuery(queryS, map);
-            while (query.nextSolution()) {
-                //System.out.println(map.toString());
-                resultado = map.toString();
-            }
-            query.close();
-        } catch (SPException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+        
+        String answer = prolog.getStringResults("findall((N,X,Y),posicao(N,X,Y),Bag).");
+        
+        Pattern pattern=new Pattern("\\(,\\((.*?),,\\((.*?),(.*?)\\)\\)"); //a word pattern
+        
+        Matcher matcher=pattern.matcher(answer);
+        while(matcher.find()){
+            
+            res.add(new Ponto(
+                   matcher.group(1),
+                   Integer.parseInt(matcher.group(2)),
+                   Integer.parseInt(matcher.group(3))
+            ));
         }
-
-        int i = 0;
-        for (i = 5; i < resultado.length() - 1; i++) {
-            if (resultado.charAt(i) != '.' && resultado.charAt(i) != '(' && resultado.charAt(i) != ')'
-                    && resultado.charAt(i) != '[' && resultado.charAt(i) != ']') {
-                resultadoManipulado.append(resultado.charAt(i));
-            }
-        }
-
-        String[] r = resultadoManipulado.toString().split(",");
-        String tmp = "";
-        int x, y;
-        i = 0;
-        while (i < r.length) {
-
-            if (r[i].startsWith("p")) {
-                //System.out.println(r[i]);
-                tmp = r[i];
-                i += 2;
-                x = Integer.parseInt(r[i]);
-                i++;
-                y = Integer.parseInt(r[i]);
-                Ponto p = new Ponto(tmp, x, y);
-                res.add(p);
-                //System.out.println("x:" + x + " y:" + y);
-            }
-            i++;
-        }
+        
+        
         //System.out.println(res);
         return res;
     }
@@ -362,5 +249,34 @@ public class Parser {
         //System.out.println(res);
         return res;
     }
-
+    
+    public ArrayList<String> pontosDoMelhorCaminho(String origem, String destino){
+        ArrayList<String> res = new ArrayList<>();
+        
+        String answer = prolog.getStringResults("melhorPercursoPontos(" + origem + "," + destino + ",X).");
+        
+        Pattern p=new Pattern("\\((.*?),"); //a word pattern
+        
+        Matcher m=p.matcher(answer);
+        while(m.find()){
+            res.add( m.toString().substring(1, m.toString().length()-1) );
+        }
+        
+        return res;
+    }
+    
+    public ArrayList<Double> distanciasDoMelhorCaminho(String origem, String destino){
+        ArrayList<Double> res = new ArrayList<>();
+        
+        String answer = prolog.getStringResults("melhorPercursoDistancias(" + origem + "," + destino + ",X).");
+        
+        Pattern p=new Pattern("\\((.*?),"); //a word pattern
+        
+        Matcher m=p.matcher(answer);
+        while(m.find()){
+            res.add( Double.parseDouble(m.toString().substring(1, m.toString().length()-1)) );
+        }
+        
+        return res;
+    }
 }

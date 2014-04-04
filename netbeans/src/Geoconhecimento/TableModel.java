@@ -6,6 +6,7 @@
 
 package Geoconhecimento;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.table.AbstractTableModel;
@@ -68,7 +69,21 @@ public class TableModel extends AbstractTableModel{
         fireTableDataChanged();
     }
     
-    public void setCaminho(){
+    public void setCaminho(ArrayList<String> nomes, ArrayList<Double> distancias){
+        data = new String[1+distancias.size()][2];
         
+        int i=0;
+        Double soma = 0.0;
+        
+        for(i=0; i<distancias.size(); i++){
+            data[i][0] = nomes.get(i) + "->" + nomes.get(i+1);
+            data[i][1] = distancias.get(i).toString();
+            soma += distancias.get(i);
+        }
+        
+        data[i][0] = "Total";
+        data[i][1] = soma.toString();
+        
+        fireTableDataChanged();
     }
 }

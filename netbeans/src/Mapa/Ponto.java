@@ -17,14 +17,19 @@ import java.util.HashMap;
 public class Ponto extends Figura{
     private Propriedades propriedades = null;
     
+    protected int originalX;
+    protected int originalY;
+    
     private double x = 0;
     private double y = 0;
     
-    private double diametro = 2;
+    private final double diametro = 500;
     
     
     public Ponto(int x, int y){
         super();
+        originalX = x;
+        originalY = y;
         this.x = x - diametro / 2;
         this.y = y - diametro / 2;
     }
