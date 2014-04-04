@@ -187,12 +187,14 @@ propriedade( p13, monumento, castelo_de_Ourem ).
 % define ligações entre pontos
 % arco( Ponto1, Ponto2 )
 
-arco(p1,p7).
-arco(p7,p3).
-arco(p7,p4).
-arco(p4,p5).
-arco(p1,p4).
-arco(p4,p1).
+arco(p1,p7). arco(p7,p1).
+arco(p7,p3). arco(p3,p7).
+arco(p7,p4). arco(p4,p7).
+arco(p4,p5). arco(p5,p4).
+arco(p1,p4). arco(p4,p1).
+
+% ciclo infinito
+% arco(X,Y) :- arco(Y,X).
 
 % -----------------------------------
 % predicado distancias entre as lojas

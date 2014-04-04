@@ -37,5 +37,30 @@ public class Arco extends Figura{
         
         g.drawLine(getX(x1), getY(y1), getX(x2), getY(y2));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        
+        final Arco other = (Arco) obj;
+        
+        // iguais
+        if( this.x1 == other.x1 &&
+            this.x2 == other.x2 &&
+            this.y1 == other.y1 &&
+            this.y2 == other.y2)
+            return true;
+        
+        // sentidos opostos
+        if( this.x1 == other.x2 &&
+            this.x2 == other.x1 &&
+            this.y1 == other.y2 &&
+            this.y2 == other.y1)
+            return true;
+        
+        return false;
+    }
+    
     
 }
