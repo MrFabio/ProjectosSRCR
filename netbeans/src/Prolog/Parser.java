@@ -32,10 +32,6 @@ public class Parser {
         this.prolog = p;
     }
     
-    /**
-     * Obtém todos os pontos
-     * @return todos os pontos
-     */
     public ArrayList<Ponto> todosOsPontos() {
         ArrayList<Ponto> res = new ArrayList<Ponto>();
         

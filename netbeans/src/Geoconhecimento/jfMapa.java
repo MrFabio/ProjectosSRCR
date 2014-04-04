@@ -13,13 +13,21 @@ import Prolog.Parser;
 import Prolog.Prolog;
 import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 import java.awt.event.MouseEvent;
+import static java.awt.event.MouseEvent.BUTTON1;
+import static java.awt.event.MouseEvent.BUTTON2;
+import static java.awt.event.MouseEvent.BUTTON3;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 
 /**
  *
  * @author Chalkos
  */
 public class jfMapa extends javax.swing.JFrame {
+    private boolean loaded = false;
+    
     private Geoconhecimento geoconhecimento;
 
     private Mapa mapa;
@@ -35,15 +43,15 @@ public class jfMapa extends javax.swing.JFrame {
     public jfMapa() {
         initComponents();
         
-        geoconhecimento = new Geoconhecimento();
-        
-        mapa = new Mapa(this.jPanel1, geoconhecimento.getPontos(), geoconhecimento.getArcos());
         
         tModel = new TableModel(new String[]{"Propriedade","Valor"});
         
         jTable1.setModel(tModel);
         
         Figura.setZoom(jSlider1.getValue());
+        
+        
+        //loadProlog("..\\pontos.pl");
     }
 
     /**
@@ -55,6 +63,7 @@ public class jfMapa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fileChooser = new javax.swing.JFileChooser();
         jSlider1 = new javax.swing.JSlider();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -62,13 +71,12 @@ public class jfMapa extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
 
+        fileChooser.setFileFilter(new FileFilter());
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
-            }
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                formComponentShown(evt);
             }
         });
 
@@ -76,11 +84,14 @@ public class jfMapa extends javax.swing.JFrame {
         jSlider1.setMaximum(1000);
         jSlider1.setMinimum(1);
         jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
+        jSlider1.setEnabled(this.loaded);
         jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSlider1StateChanged(evt);
             }
         });
+
+        jScrollPane1.setEnabled(this.loaded);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,10 +104,13 @@ public class jfMapa extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setEnabled(this.loaded);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setEnabled(this.loaded);
 
+        jPanel1.setEnabled(this.loaded);
         jPanel1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 jPanel1MouseWheelMoved(evt);
@@ -156,7 +170,12 @@ public class jfMapa extends javax.swing.JFrame {
         );
 
         jButton1.setText("Load Prolog");
-        jButton1.setEnabled(false);
+        jButton1.setEnabled(!this.loaded);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,9 +212,11 @@ public class jfMapa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        if(!loaded) return;
+        
         int ctrldown = CTRL_DOWN_MASK;
         
-        if ((evt.getModifiersEx() & CTRL_DOWN_MASK) == CTRL_DOWN_MASK) {
+        if ( evt.getButton() == BUTTON3 || (evt.getModifiersEx() & CTRL_DOWN_MASK) == CTRL_DOWN_MASK) {
             // calcular caminho
             mapa.caminhoMaisCurto(geoconhecimento, tModel, evt.getX(), evt.getY());
         }else{
@@ -207,6 +228,8 @@ public class jfMapa extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        if(!loaded) return;
+        
         Figura.mouseMoved(mouseDownX, mouseDownY, evt.getX(), evt.getY());
         mouseDownX = evt.getX();
         mouseDownY = evt.getY();
@@ -214,50 +237,69 @@ public class jfMapa extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseDragged
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        if(!loaded) return;
+        
         mouseDownX = evt.getX();
         mouseDownY = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        if(!loaded) return;
+        
         Figura.setZoom(jSlider1.getValue());
         mapa.desenharTudo();
     }//GEN-LAST:event_jSlider1StateChanged
 
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        jTable1.setModel(tModel);
-        mapa.desenharTudo();
-    }//GEN-LAST:event_formComponentShown
-
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        mapa.desenharTudo();
+        if(loaded) mapa.desenharTudo();
     }//GEN-LAST:event_formComponentResized
 
     private void jPanel1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentResized
-        mapa.desenharTudo();
+        if(loaded) mapa.desenharTudo();
     }//GEN-LAST:event_jPanel1ComponentResized
 
     private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentShown
-        mapa.desenharTudo();
+        if(loaded) mapa.desenharTudo();
     }//GEN-LAST:event_jPanel1ComponentShown
 
     private void jPanel1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jPanel1MouseWheelMoved
+        if(!loaded) return;
+        
         double sentidoActual = evt.getPreciseWheelRotation();
 
         jSlider1.setValue(jSlider1.getValue() - ((int) (sentidoActual * 30)));
     }//GEN-LAST:event_jPanel1MouseWheelMoved
 
     private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
-        
-        mapa.showLabel(evt.getX(), evt.getY());
-        /*
-        mapa.activeLabel.setPosition(evt.getX(), evt.getY());
-        mapa.activeLabel.setText("Pos: (" + mapa.mouseXtoMapX(evt.getX()) + ", " + mapa.mouseYtoMapY(evt.getY()) + ")");
-        mapa.activeLabel.activate();
-        mapa.desenharTudo();
-        mapa.activeLabel.deactivate();
-        */
+        if(this.loaded) mapa.showLabel(evt.getX(), evt.getY());
     }//GEN-LAST:event_jPanel1MouseMoved
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int returnVal = fileChooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            
+            loadProlog(file.getAbsolutePath());
+            mapa.desenharTudo();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    private void loadProlog(String file){
+        geoconhecimento = new Geoconhecimento(file);
+        mapa = new Mapa(this.jPanel1, geoconhecimento.getPontos(), geoconhecimento.getArcos());
+        this.loaded = true;
+        
+        this.jButton1.setEnabled(false);
+        this.jPanel1.setEnabled(true);
+        this.jPanel2.setEnabled(true);
+        this.jScrollPane1.setEnabled(true);
+        this.jSlider1.setEnabled(true);
+        this.jTable1.setEnabled(true);
+        
+        jTable1.setModel(tModel);
+        mapa.desenharTudo();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -294,6 +336,7 @@ public class jfMapa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -197,7 +197,7 @@ arco(p1,p4). arco(p4,p1).
 % arco(X,Y) :- arco(Y,X).
 
 % -----------------------------------
-% predicado distancias entre as lojas
+% predicado distancias entre s pontos
 % distancia(lojaA, lojaB, Resultado).
 
 distancia(A,B,R) :-

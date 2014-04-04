@@ -29,8 +29,8 @@ public class Mapa {
     protected static final Color normal = new Color(0x000000);
     protected static final Color normalLinhas = new Color(0x666666);
     protected static final Color selected = new Color(0x0033FF);
-    protected static final Color path = new Color(0xFF0000);
-    protected static final Color destination = new Color(0xFF3300);
+    protected static final Color path = new Color(0xFF6600);
+    protected static final Color destination = new Color(0xFF0000);
 
     private ArrayList<Figura> shapes = new ArrayList<>();
     private JPanel panel;
@@ -114,10 +114,6 @@ public class Mapa {
                 if (p.getDiametro() / 2.0 >= Math.sqrt(Math.pow(p.getCenterX() - x, 2) + Math.pow(p.getCenterY() - y, 2))) {
                     //System.out.println("intersect!!!! diam=" + p.getDiametro() + " x=" + x + " y=" + y);
                     
-                    if( p.color == selected ){
-                        p.color = normal;
-                        return;
-                    }
                     
                     clearAll();
                     p.color = selected;

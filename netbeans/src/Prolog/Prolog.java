@@ -26,6 +26,7 @@ public class Prolog{
     public Prolog(String pathToFile){
         try {
             loadSICStus();
+            System.out.println(pathToFile);
             loadSICStusScrpt(pathToFile);
         } catch (SPException ex) {
             Logger.getLogger(Prolog.class.getName()).log(Level.SEVERE, null, ex);

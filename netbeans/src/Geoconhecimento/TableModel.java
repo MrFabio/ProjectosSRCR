@@ -61,7 +61,7 @@ public class TableModel extends AbstractTableModel{
         int i=1;
         
         for(Map.Entry<String, String> pair : propriedades.entrySet()) {
-            data[i][0] = pair.getKey();
+            data[i][0] = pair.getKey().substring(0, 1).toUpperCase().concat(pair.getKey().substring(1, pair.getKey().length()));
             data[i][1] = pair.getValue();
             i++;
         }
@@ -77,12 +77,19 @@ public class TableModel extends AbstractTableModel{
         
         for(i=0; i<distancias.size(); i++){
             data[i][0] = nomes.get(i) + "->" + nomes.get(i+1);
-            data[i][1] = distancias.get(i).toString();
+            data[i][1] = String.format("%.2f",distancias.get(i));
             soma += distancias.get(i);
         }
         
-        data[i][0] = "Total";
-        data[i][1] = soma.toString();
+        if( soma != 0 ){
+            data[i][0] = "Total";
+            data[i][1] = String.format("%.2f",soma);
+        }else{
+            data[i][0] = "Caminho desconhecido.";
+            data[i][1] = "";
+        }
+        
+        
         
         fireTableDataChanged();
     }
