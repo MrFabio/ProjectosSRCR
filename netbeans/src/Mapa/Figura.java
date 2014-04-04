@@ -18,8 +18,8 @@ public abstract class Figura {
     protected static double zoom = 1;
     protected static int meioX = 0;
     protected static int meioY = 0;
-    protected static double offsetX = 20;
-    protected static double offsetY = 20;
+    protected static double offsetX = 0;
+    protected static double offsetY = 0;
     protected Color color = Mapa.normal;
 
     public abstract void desenhar(Graphics g);

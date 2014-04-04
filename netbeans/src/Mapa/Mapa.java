@@ -28,7 +28,8 @@ import javax.swing.JPanel;
 public class Mapa {
     protected static final Color normal = new Color(0x000000);
     protected static final Color selected = new Color(0x0033FF);
-    protected static final Color pathing = new Color(0xFF3300);
+    protected static final Color path = new Color(0xFF0000);
+    protected static final Color destination = new Color(0xFF3300);
 
     private ArrayList<Figura> shapes = new ArrayList<>();
     private JPanel panel;
@@ -59,8 +60,6 @@ public class Mapa {
         
         /*
         // marcar o meio
-        g.setColor(new Color(0xCCCCCC));
-        g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
         g.setColor(new Color(0xFF0000));
         g.drawLine(0, panel.getHeight() / 2, panel.getWidth(), panel.getHeight() / 2);
         g.drawLine(panel.getWidth() / 2, 0, panel.getWidth() / 2, panel.getHeight());
