@@ -57,7 +57,14 @@ public class Ponto extends Figura{
     public String getNome(){
         if( propriedades != null)
             return propriedades.getNome();
-        return null;
+        return "";
+    }
+    
+    public String getLocal(){
+        if( propriedades != null)
+            if( propriedades.getPropriedades().containsKey("Local") )
+                return propriedades.getPropriedades().get("Local");
+        return "";
     }
     
     public void setPropriedades(HashMap<String, String> p){

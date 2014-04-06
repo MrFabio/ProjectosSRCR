@@ -157,7 +157,7 @@ propriedade( p6, hotel, 'Estrela Hotel' ).
 
 
 %fatima
-propriedade( p7, local, 'Fatima')
+propriedade( p7, local, 'Fatima').
 propriedade( p7, santuario, 'Santuario de Fatima' ).
 propriedade( p7, grutas, 'Grutas de mira d aire' ).
 

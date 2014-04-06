@@ -19,6 +19,7 @@ import java.awt.Label;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JPanel;
 
 /**
@@ -258,5 +259,26 @@ public class Mapa {
             if( p.color == Mapa.normal )
                 p.color = Mapa.path;
         }
+    }
+
+    public void pontosNaArea(Geoconhecimento gc, TableModel model, int x1, int y1, int x2, int y2) {
+        ArrayList<String> ids = gc.nomePontosNaArea(x1, y1, x2, y2);
+        
+        HashMap<String,String> tabela = new HashMap<>();
+        
+        for(String id : ids){
+            for (Figura s : shapes) {
+                if (s != null && s.getClass() == Ponto.class) {
+                    Ponto p = (Ponto) s;
+                    
+                    if( id.equals(p.getNome()) ){
+                        gc.actualizarPropriedades(p);
+                        tabela.put(id, p.getLocal());
+                    }
+                }
+            }
+        }
+        
+        model.setEncontrados(tabela);
     }
 }

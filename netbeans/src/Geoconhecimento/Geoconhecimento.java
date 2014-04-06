@@ -49,7 +49,12 @@ public class Geoconhecimento {
     public ArrayList<String> pontosDoCaminhoMaisCurto(Ponto origem, Ponto destino){
         return parser.pontosDoMelhorCaminho(origem.getNome(), destino.getNome());
     }
+    
     public ArrayList<Double> distanciasDoCaminhoMaisCurto(Ponto origem, Ponto destino){
         return parser.distanciasDoMelhorCaminho(origem.getNome(), destino.getNome());
+    }
+    
+    public ArrayList<String> nomePontosNaArea(int x1, int y1, int x2, int y2){
+        return parser.nomePontosNaArea(x1, y1, x2, y2);
     }
 }

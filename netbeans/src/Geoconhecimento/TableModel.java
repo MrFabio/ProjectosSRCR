@@ -74,7 +74,7 @@ public class TableModel extends AbstractTableModel{
             i++;
         }
         
-        fireTableDataChanged();
+        fireTableStructureChanged();
     }
     
     public void setCaminho(ArrayList<String> nomes, ArrayList<Double> distancias){
@@ -97,8 +97,30 @@ public class TableModel extends AbstractTableModel{
             data[i][1] = "";
         }
         
+        fireTableStructureChanged();
+    }
+    
+    public void setEncontrados(HashMap<String,String> id_nome){
+        String cabecalhos[] = new String[2];
+        cabecalhos[0] = columnNames[0];
+        cabecalhos[1] = columnNames[1];
         
+        this.columnNames[0] = "ID";
+        this.columnNames[1] = "Local";
         
-        fireTableDataChanged();
+        data = new String[id_nome.size()][2];
+        
+        int i=0;
+        
+        for(Map.Entry<String, String> pair : id_nome.entrySet()) {
+            data[i][0] = pair.getKey();
+            data[i][1] = pair.getValue();
+            i++;
+        }
+        
+        fireTableStructureChanged();
+        
+        columnNames[0] = cabecalhos[0];
+        columnNames[1] = cabecalhos[1];
     }
 }

@@ -32,6 +32,25 @@ public class Parser {
         this.prolog = p;
     }
     
+    public ArrayList<String> nomePontosNaArea(int x1, int y1, int x2, int y2) {
+        ArrayList<String> res = new ArrayList<>();
+        
+        String answer = prolog.getStringResults("contidoNaArea(" + x1 + "," + y1 + "," + x2 + "," + y2 + "," + "X).");
+        
+        Pattern pattern=new Pattern("\\((.*?),"); //a word pattern
+        
+        Matcher matcher=pattern.matcher(answer);
+        while(matcher.find()){
+            res.add(matcher.group(1));
+        }
+        
+        //System.out.println(res);
+        return res;
+    }
+    
+    
+    
+    
     public ArrayList<Ponto> todosOsPontos() {
         ArrayList<Ponto> res = new ArrayList<Ponto>();
         
