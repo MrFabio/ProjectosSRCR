@@ -57,7 +57,7 @@ public class jfMapa extends javax.swing.JFrame {
         jTextField4.setSize(59, 20);
         
         
-        loadProlog("..\\pontos.pl");
+        //loadProlog("..\\pontos.pl");
     }
 
     /**
