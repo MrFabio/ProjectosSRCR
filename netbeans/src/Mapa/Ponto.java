@@ -17,16 +17,16 @@ import java.util.HashMap;
 public class Ponto extends Figura{
     private Propriedades propriedades = null;
     
-    protected int originalX;
-    protected int originalY;
+    protected double originalX;
+    protected double originalY;
     
     private double x = 0;
     private double y = 0;
     
-    private final double diametro = 500;
+    private final double diametro = 20;
     
     
-    public Ponto(int x, int y){
+    public Ponto(double x, double y){
         super();
         originalX = x;
         originalY = y;
@@ -34,12 +34,12 @@ public class Ponto extends Figura{
         this.y = y - diametro / 2;
     }
 
-    public Ponto(int x, int y, Color c) {
+    public Ponto(double x, double y, Color c) {
         this(x, y);
         this.color = c;
     }
 
-    public Ponto(String nome, int x, int y){
+    public Ponto(String nome, double x, double y){
         this(x,y);
         propriedades = new Propriedades(nome);
     }

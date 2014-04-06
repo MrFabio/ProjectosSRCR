@@ -13,17 +13,17 @@ import java.awt.Graphics;
  * @author Chalkos
  */
 public class Arco extends Figura{
-    protected int x1 = 0;
-    protected int x2 = 0;
-    protected int y1 = 0;
-    protected int y2 = 0;
+    protected double x1 = 0;
+    protected double x2 = 0;
+    protected double y1 = 0;
+    protected double y2 = 0;
     
     public Arco(){
         super();
         this.color = Mapa.normalLinhas;
     }
     
-    public Arco(int x1, int y1, int x2, int y2) {
+    public Arco(double x1, double y1, double x2, double y2) {
         this();
         this.x1 = x1;
         this.x2 = x2;

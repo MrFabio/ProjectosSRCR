@@ -18,14 +18,14 @@ public abstract class Figura {
     protected static double zoom = 1;
     protected static int meioX = 0;
     protected static int meioY = 0;
-    protected static double offsetX = 0;
-    protected static double offsetY = 0;
+    protected static double offsetX = 839.8899;
+    protected static double offsetY = 4152.8637;
     protected Color color = Mapa.normal;
 
     public abstract void desenhar(Graphics g);
 
     public static void setZoom(int zoom) {
-        Figura.zoom = ((double) zoom) / 10000;
+        Figura.zoom = ((double) zoom) / 1000;
     }
 
     public static void setMeio(int x, int y) {

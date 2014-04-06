@@ -51,7 +51,7 @@ public class jfMapa extends javax.swing.JFrame {
         Figura.setZoom(jSlider1.getValue());
         
         
-        //loadProlog("..\\pontos.pl");
+        loadProlog("..\\pontos.pl");
     }
 
     /**
@@ -82,8 +82,9 @@ public class jfMapa extends javax.swing.JFrame {
 
         jSlider1.setMajorTickSpacing(50);
         jSlider1.setMaximum(1000);
-        jSlider1.setMinimum(1);
+        jSlider1.setMinimum(20);
         jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
+        jSlider1.setValue(150);
         jSlider1.setEnabled(this.loaded);
         jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {

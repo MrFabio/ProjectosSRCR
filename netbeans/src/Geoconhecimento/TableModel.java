@@ -60,8 +60,16 @@ public class TableModel extends AbstractTableModel{
         data[0][1] = id;
         int i=1;
         
+        if( propriedades.containsKey("Local") ){
+            data[i][0] = "Local";
+            data[i][1] = propriedades.get("Local");
+            i++;
+        }
+        
         for(Map.Entry<String, String> pair : propriedades.entrySet()) {
-            data[i][0] = pair.getKey().substring(0, 1).toUpperCase().concat(pair.getKey().substring(1, pair.getKey().length()));
+            if(pair.getKey().equals("Local"))
+                continue;
+            data[i][0] = pair.getKey();
             data[i][1] = pair.getValue();
             i++;
         }

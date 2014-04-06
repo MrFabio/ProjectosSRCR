@@ -29,55 +29,53 @@ posicao( p10, -86600, 406400 ).
 posicao( p11, -79100, 385700 ).
 %braganca
 posicao( p12, -67600, 418000 ).
-%ourem
-posicao( p13, -85800, 396600 ).
 %madeira
-posicao( p14, -169500, 327600 ).
+posicao( p13, -169500, 327600 ).
 %portosanto
-posicao( p15, -163400, 330800 ).
+posicao( p14, -163400, 330800 ).
 
 %------resto europa--------
 
 %madrid - espanha
-posicao( p16, -37000, 404200 ).
+posicao( p15, -37000, 404200 ).
 %barcelona - espanha
-posicao( p17, 21700, 413900 ).
+posicao( p16, 21700, 413900 ).
 %paris - franca
-posicao( p18, 23500, 488600 ).
+posicao( p17, 23500, 488600 ).
 %monaco
-posicao( p19, 74200, 437400 ).
+posicao( p18, 74200, 437400 ).
 %milao-italia
-posicao( p20, 91800, 454600 ).
+posicao( p19, 91800, 454600 ).
 %roma-italia
-posicao( p21, 124800, 418900 ).
+posicao( p20, 124800, 418900 ).
 %bruxelas - belgica
-posicao( p22, 43500, 508500 ).
+posicao( p21, 43500, 508500 ).
 %londres - inglaterra
-posicao( p23, -1200, 515100 ).
+posicao( p22, -1200, 515100 ).
 %berlim - alemanha
-posicao( p24, 134100, 525200 ).
+posicao( p23, 134100, 525200 ).
 %ibiza - espanha
-posicao( p25, 14200, 389100 ).
+posicao( p24, 14200, 389100 ).
 %palma - espanha
-posicao( p26, 26500, 395700 ).
+posicao( p25, 26500, 395700 ).
 %cagliari - italia
-posicao( p27, 91400, 392500 ).
+posicao( p26, 91400, 392500 ).
 %moscovo - russia
-posicao( p28, 376100, 557500 ).
+posicao( p27, 376100, 557500 ).
 %minsk - bielorussia
-posicao( p29, 275600, 539000 ).
+posicao( p28, 275600, 539000 ).
 %cracovia - polonia
-posicao( p30, 199500, 500600 ).
+posicao( p29, 199500, 500600 ).
 %helsinquia - finlandia
-posicao( p31, 249400, 601700 ).
+posicao( p30, 249400, 601700 ).
 %pello - finlandia
-posicao( p32, 239600, 667700 ).
+posicao( p31, 239600, 667700 ).
 %estocolmo - suecia
-posicao( p33, 180600, 593300 ).
+posicao( p32, 180600, 593300 ).
 %oslo - noruega
-posicao( p34, 107500, 599200 ).
+posicao( p33, 107500, 599200 ).
 %s.petersburgo - russia
-posicao( p35, 303200, 599300 ).
+posicao( p34, 303200, 599300 ).
 
 
 
@@ -114,10 +112,10 @@ propriedade( p2, empresa, 'Fraterna' ).
 %porto
 propriedade( p3, local, 'Porto' ).
 propriedade( p3, estadio, 'Estadio do Bessa' ).
-propriedade( p3, monumento, 'Clérigos' ).
+propriedade( p3, monumento, 'Clerigos' ).
 propriedade( p3, shopping, 'Norte Shopping' ).
 propriedade( p3, lazer, 'Via Norte' ).
-propriedade( p3, aeroporto, 'Sá Carneiro' ).
+propriedade( p3, aeroporto, 'Sa Carneiro' ).
 propriedade( p3, restauracao, 'Papaki' ).
 propriedade( p3, turismo, 'Rota dos vinhos' ).
 propriedade( p3, pastelaria, 'Petulia' ).
@@ -126,10 +124,11 @@ propriedade( p3, transportes, 'Carris' ).
 
 
 %lisboa
+propriedade( p4, local, 'Lisboa' ).
 propriedade( p4, estadio, 'Lisboa' ).
 propriedade( p4, estadio, 'Estadio Nacional' ).
 propriedade( p4, catedral, 'Sta Maria').
-propriedade( p4, monumento, 'Padrão dos descobrimentos').
+propriedade( p4, monumento, 'Padrao dos descobrimentos').
 propriedade( p4, pavilhao, 'MEO Arena' ).
 propriedade( p4, aeroporto, 'Aeroporto Internacional' ).
 propriedade( p4, restauracao, 'Pizza Hut' ).
@@ -146,8 +145,8 @@ propriedade( p5, marina, 'Marina de Vilamoura' ).
 propriedade( p5, estacao, 'Ferroviaria de Faro' ).
 propriedade( p5, monumento, 'Ruinas de milreu' ).
 propriedade( p5, igreja, 'Carmo' ).
-propriedade( p5, shopping, 'Fórum Algarve' ).
-propriedade( p5, praia, 'Falésia' ).
+propriedade( p5, shopping, 'Forum Algarve' ).
+propriedade( p5, praia, 'Falesia' ).
 
 
 %guarda
@@ -158,6 +157,7 @@ propriedade( p6, hotel, 'Estrela Hotel' ).
 
 
 %fatima
+propriedade( p7, local, 'Fatima')
 propriedade( p7, santuario, 'Santuario de Fatima' ).
 propriedade( p7, grutas, 'Grutas de mira d aire' ).
 
@@ -211,71 +211,65 @@ propriedade( p12, monumento, 'Castelo de Braganca' ).
 propriedade( p12, politecnico, 'Politecnico de Braganca' ).
 
 
-%ourem
-propriedade( p13, local, 'Ourem' ).
-propriedade( p13, escola, 'Profissional de Ourem' ).
-propriedade( p13, monumento, 'Castelo de Ourem' ).
-
-
 %madeira
-propriedade( p14, local, 'Madeira' ).
-propriedade( p14, marina, 'Marina do Funchal' ).
-propriedade( p14, hotel, 'Ocean Gardens' ).
-propriedade( p14, praia, 'Ponta do Sol' ).
-propriedade( p14, aeroporto, 'Aeroporto internacional' ).
-propriedade( p14, monumento, 'Forte de S Joao Batista' ).
-propriedade( p14, parque, 'Parque Ribeiro Frio' ).
+propriedade( p13, local, 'Madeira' ).
+propriedade( p13, marina, 'Marina do Funchal' ).
+propriedade( p13, hotel, 'Ocean Gardens' ).
+propriedade( p13, praia, 'Ponta do Sol' ).
+propriedade( p13, aeroporto, 'Aeroporto internacional' ).
+propriedade( p13, monumento, 'Forte de S Joao Batista' ).
+propriedade( p13, parque, 'Parque Ribeiro Frio' ).
 
 
 %porto_santo
-propriedade( p15, local, 'Porto Santo' ).
-propriedade( p15, residencial, 'Residencial Theresia' ).
-propriedade( p15, praia, 'Praia Dourada' ).
-propriedade( p15, aeroporto, 'Aeroporto Porto Santo' ).
-propriedade( p15, lazer, 'Porto Santo Golf' ).
-propriedade( p15, monumento, 'Vila Baleira' ).
+propriedade( p14, local, 'Porto Santo' ).
+propriedade( p14, residencial, 'Residencial Theresia' ).
+propriedade( p14, praia, 'Praia Dourada' ).
+propriedade( p14, aeroporto, 'Aeroporto Porto Santo' ).
+propriedade( p14, lazer, 'Porto Santo Golf' ).
+propriedade( p14, monumento, 'Vila Baleira' ).
 
 
 %madrid
-propriedade( p16, local, 'Madrid' ).
+propriedade( p15, local, 'Madrid' ).
 %barcelona
-propriedade( p17, local, 'Barcelona' ).
+propriedade( p16, local, 'Barcelona' ).
 %paris
-propriedade( p18, local, 'Paris' ).
+propriedade( p17, local, 'Paris' ).
 %monaco
-propriedade( p19, local, 'Monaco' ).
+propriedade( p18, local, 'Monaco' ).
 %milao
-propriedade( p20, local, 'Milao' ).
+propriedade( p19, local, 'Milao' ).
 %roma
-propriedade( p21, local, 'Roma' ).
+propriedade( p20, local, 'Roma' ).
 %bruxelas
-propriedade( p22, local, 'Bruxelas' ).
+propriedade( p21, local, 'Bruxelas' ).
 %londres
-propriedade( p23, local, 'Londres' ).
+propriedade( p22, local, 'Londres' ).
 %berlim
-propriedade( p24, local, 'Berlim' ).
+propriedade( p23, local, 'Berlim' ).
 %ibiza
-propriedade( p25, local, 'Ibiza' ).
+propriedade( p24, local, 'Ibiza' ).
 %palma
-propriedade( p26, local, 'Palma' ).
+propriedade( p25, local, 'Palma' ).
 %cagliari
-propriedade( p27, local, 'Cagliari' ).
+propriedade( p26, local, 'Cagliari' ).
 %moscovo
-propriedade( p28, local, 'Moscovo' ).
+propriedade( p27, local, 'Moscovo' ).
 %minsk
-propriedade( p29, local, 'Minsk' ).
+propriedade( p28, local, 'Minsk' ).
 %cracovia
-propriedade( p30, local, 'Cracovia' ).
+propriedade( p29, local, 'Cracovia' ).
 %helsinquia
-propriedade( p31, local, 'Helsinquia' ).
+propriedade( p30, local, 'Helsinquia' ).
 %pello
-propriedade( p32, local, 'Pello' ).
+propriedade( p31, local, 'Pello' ).
 %estocolmo
-propriedade( p33, local, 'Estocolmo' ).
+propriedade( p32, local, 'Estocolmo' ).
 %oslo
-propriedade( p34, local, 'Oslo' ).
+propriedade( p33, local, 'Oslo' ).
 %spetersburgo
-propriedade( p35, local, 'S Petersburgo' ).
+propriedade( p34, local, 'S Petersburgo' ).
 
 
 
@@ -307,9 +301,9 @@ arco(p6,p4).
 %lisboa<->fatima
 arco(p4,p7).
 arco(p7,p4).
-%fatima<->ourem
-arco(p7,p13).
-arco(p13,p7).
+%coimbra<->fatima
+arco(p9,p7).
+arco(p7,p9).
 %lisboa<->viseu
 arco(p4,p8).
 arco(p8,p4).
@@ -344,71 +338,71 @@ arco(p12,p1).
 arco(p2,p12).
 arco(p12,p2).
 %guarda->madrid
-arco(p6,p16).
-arco(p16,p6).
+arco(p6,p15).
+arco(p15,p6).
 %braganca->madrid
-arco(p12,p16).
-arco(p16,p12).
+arco(p12,p15).
+arco(p15,p12).
 %madrid->barcelona
+arco(p15,p16).
+arco(p16,p15).
+%barcelona->paris
 arco(p16,p17).
 arco(p17,p16).
-%barcelona->paris
-arco(p17,p18).
-arco(p18,p17).
 %barcelona->monaco
-arco(p17,p19).
-arco(p19,p17).
+arco(p16,p18).
+arco(p18,p16).
 %monaco->milao
+arco(p18,p19).
+arco(p19,p18).
+%milao->roma
 arco(p19,p20).
 arco(p20,p19).
-%milao->roma
-arco(p20,p21).
-arco(p21,p20).
 %paris->bruxelas
-arco(p18,p22).
-arco(p22,p18).
+arco(p17,p21).
+arco(p21,p17).
 %bruxelas->berlim
-arco(p22,p24).
-arco(p24,p22).
+arco(p21,p23).
+arco(p23,p21).
 %bruxelas->londres
-arco(p22,p23).
-arco(p23,p22).
+arco(p21,p22).
+arco(p22,p21).
 %paris->berlim
-arco(p18,p24).
-arco(p24,p18).
+arco(p17,p23).
+arco(p23,p17).
 %moscovo->minsk
+arco(p28,p27).
+arco(p27,p28).
+%cracovia->minsk
 arco(p29,p28).
 arco(p28,p29).
-%cracovia->minsk
-arco(p30,p29).
-arco(p29,p30).
 %berlim->moscovo
-arco(p24,p29).
-arco(p29,p24).
+arco(p23,p28).
+arco(p28,p23).
 %berlim->cracovia
-arco(p24,p30).
-arco(p30,p24).
+arco(p23,p29).
+arco(p29,p23).
 %milao->cracovia
-arco(p20,p30).
-arco(p30,p20).
+arco(p19,p29).
+arco(p29,p19).
 %moscovo->spetersburgo
-arco(p28,p35).
-arco(p35,p28).
+arco(p27,p34).
+arco(p34,p27).
 %pello->estocolmo
-arco(p32,p33).
-arco(p33,p32).
-%pello->oslo
-arco(p32,p34).
-arco(p34,p32).
-%estocolmo->oslo
-arco(p33,p34).
-arco(p34,p33).
-%spetersburgo->helsinquia
-arco(p35,p31).
-arco(p31,p35).
-%helsinquia->pello
 arco(p31,p32).
 arco(p32,p31).
+%pello->oslo
+arco(p31,p33).
+arco(p33,p31).
+%estocolmo->oslo
+arco(p32,p33).
+arco(p33,p32).
+%spetersburgo->helsinquia
+arco(p34,p30).
+arco(p30,p34).
+%helsinquia->pello
+arco(p30,p31).
+arco(p31,p30).
 
 % -----------------------------------
 % predicado distancias entre s pontos

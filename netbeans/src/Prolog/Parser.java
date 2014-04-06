@@ -44,8 +44,8 @@ public class Parser {
             
             res.add(new Ponto(
                    matcher.group(1),
-                   Integer.parseInt(matcher.group(2)),
-                   Integer.parseInt(matcher.group(3))
+                   Double.parseDouble(matcher.group(2))/100,
+                   Double.parseDouble(matcher.group(3))/(-100)
             ));
         }
         
@@ -63,7 +63,9 @@ public class Parser {
 
         Matcher matcher=pattern.matcher(answer);
         while(matcher.find())
-            res.put(matcher.group(1), matcher.group(2));
+            res.put(
+                    matcher.group(1).substring(0, 1).toUpperCase() + matcher.group(1).substring(1, matcher.group(1).length()),
+                    matcher.group(2).substring(0, 1).toUpperCase() + matcher.group(2).substring(1, matcher.group(2).length()));
 
         ponto.setPropriedades(res);
     }
@@ -79,10 +81,10 @@ public class Parser {
         while(matcher.find()){
             
             Arco novo = new Arco(
-                    Integer.parseInt(matcher.group(1)),
-                    Integer.parseInt(matcher.group(2)),
-                    Integer.parseInt(matcher.group(3)),
-                    Integer.parseInt(matcher.group(4))
+                    Double.parseDouble(matcher.group(1))/100,
+                    Double.parseDouble(matcher.group(2))/(-100),
+                    Double.parseDouble(matcher.group(3))/100,
+                    Double.parseDouble(matcher.group(4))/(-100)
             );
             
             Boolean existe = false;
@@ -124,7 +126,7 @@ public class Parser {
         
         Matcher m=p.matcher(answer);
         while(m.find()){
-            res.add( Double.parseDouble(m.toString().substring(1, m.toString().length()-1)) );
+            res.add( Double.parseDouble(m.toString().substring(1, m.toString().length()-1))/100 );
         }
         
         return res;
